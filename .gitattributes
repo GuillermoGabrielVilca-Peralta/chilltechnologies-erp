@@ -1,0 +1,17 @@
+# Normaliza los fines de linea: en el repo se guardan como LF,
+# en tu disco Windows se usan como CRLF. Evita diffs falsos.
+* text=auto
+
+*.cs      text diff=csharp
+*.csproj  text
+*.sln     text eol=crlf
+*.json    text
+*.sql     text
+*.md      text
+*.http    text
+
+*.png binary
+*.jpg binary
+*.ico binary
+*.dll binary
+*.exe binary
