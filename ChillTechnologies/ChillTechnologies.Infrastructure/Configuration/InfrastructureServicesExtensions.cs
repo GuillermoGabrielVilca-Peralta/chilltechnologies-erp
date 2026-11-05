@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ChillTechnologies.Application.Interfaces;
 using ChillTechnologies.Domain.Interfaces;
 using ChillTechnologies.Infrastructure.Context;
 using ChillTechnologies.Infrastructure.Repositories;
+using ChillTechnologies.Infrastructure.Services;
 
 namespace ChillTechnologies.Infrastructure.Configuration;
 
@@ -18,6 +20,7 @@ public static class InfrastructureServicesExtensions
         });
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
 
         return services;
     }
