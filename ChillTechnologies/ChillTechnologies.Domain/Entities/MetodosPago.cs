@@ -9,5 +9,7 @@ public partial class MetodosPago
 
     public string Nombre { get; set; } = null!;
 
+    public virtual ICollection<Pago> Pagos { get; set; } = new List<Pago>();
+
     public virtual ICollection<Suscripcione> Suscripciones { get; set; } = new List<Suscripcione>();
 }

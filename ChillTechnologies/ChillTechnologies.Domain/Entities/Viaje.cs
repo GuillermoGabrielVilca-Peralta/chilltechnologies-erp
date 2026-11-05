@@ -28,9 +28,15 @@ public partial class Viaje
 
     public string Estado { get; set; } = null!;
 
+    public virtual ICollection<AlertasRiesgo> AlertasRiesgos { get; set; } = new List<AlertasRiesgo>();
+
+    public virtual EmisionesViaje? EmisionesViaje { get; set; }
+
     public virtual ICollection<Evento> Eventos { get; set; } = new List<Evento>();
 
     public virtual ICollection<MovimientosPunto> MovimientosPuntos { get; set; } = new List<MovimientosPunto>();
+
+    public virtual ICollection<Parada> Parada { get; set; } = new List<Parada>();
 
     public virtual Usuario Usuario { get; set; } = null!;
 

@@ -5,7 +5,9 @@ namespace ChillTechnologies.Application.UseCases.Vehiculos.Commands;
 
 public record CreateVehiculoCommand : IRequest<int>
 {
-    public int UsuarioId { get; set; }
+    // Un vehiculo es personal (UsuarioId) o de flota (FlotaId), nunca ambos
+    public int? UsuarioId { get; set; }
+    public int? FlotaId { get; set; }
     public string Placa { get; set; } = null!;
     public string? Marca { get; set; }
     public string? Modelo { get; set; }
@@ -28,6 +30,7 @@ internal sealed class CreateVehiculoCommandHandler : IRequestHandler<CreateVehic
         var data = new Domain.Entities.Vehiculo
         {
             UsuarioId = request.UsuarioId,
+            FlotaId = request.FlotaId,
             Placa = request.Placa,
             Marca = request.Marca,
             Modelo = request.Modelo,

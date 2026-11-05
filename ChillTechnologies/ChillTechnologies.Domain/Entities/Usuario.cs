@@ -32,9 +32,24 @@ public partial class Usuario
 
     public DateTime FechaRegistro { get; set; }
 
+    /// <summary>
+    /// NULL = conductor independiente (B2C)
+    /// </summary>
+    public int? EmpresaId { get; set; }
+
+    public virtual ICollection<AlertasRiesgo> AlertasRiesgos { get; set; } = new List<AlertasRiesgo>();
+
+    public virtual ICollection<AsignacionesVehiculo> AsignacionesVehiculos { get; set; } = new List<AsignacionesVehiculo>();
+
     public virtual ICollection<Canje> Canjes { get; set; } = new List<Canje>();
 
+    public virtual Empresa? Empresa { get; set; }
+
+    public virtual ICollection<Evento> Eventos { get; set; } = new List<Evento>();
+
     public virtual ICollection<MovimientosPunto> MovimientosPuntos { get; set; } = new List<MovimientosPunto>();
+
+    public virtual ICollection<Notificacione> Notificaciones { get; set; } = new List<Notificacione>();
 
     public virtual Plane Plan { get; set; } = null!;
 

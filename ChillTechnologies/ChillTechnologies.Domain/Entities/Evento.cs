@@ -28,9 +28,24 @@ public partial class Evento
 
     public string? ClienteEventoId { get; set; }
 
+    public int? ModeloIaId { get; set; }
+
+    public decimal? Confianza { get; set; }
+
+    /// <summary>
+    /// Confirmacion humana de que la deteccion de IA fue correcta
+    /// </summary>
+    public bool Validado { get; set; }
+
+    public int? ValidadoPor { get; set; }
+
     public virtual Camara Camara { get; set; } = null!;
 
+    public virtual ModelosIum? ModeloIa { get; set; }
+
     public virtual TiposEvento TipoEvento { get; set; } = null!;
+
+    public virtual Usuario? ValidadoPorNavigation { get; set; }
 
     public virtual Viaje? Viaje { get; set; }
 }

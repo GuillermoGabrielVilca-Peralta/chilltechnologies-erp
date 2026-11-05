@@ -6,12 +6,15 @@ namespace ChillTechnologies.Application.UseCases.Vehiculos.Commands;
 public record UpdateVehiculoCommand : IRequest<Unit>
 {
     public int Id { get; set; }
+    public int? UsuarioId { get; set; }
+    public int? FlotaId { get; set; }
     public string Placa { get; set; } = null!;
     public string? Marca { get; set; }
     public string? Modelo { get; set; }
     public int? Anio { get; set; }
     public string? Color { get; set; }
     public int TipoVehiculoId { get; set; }
+    // Activo, Inactivo o Vendido
     public string Estado { get; set; } = null!;
 }
 
@@ -30,7 +33,9 @@ internal sealed class UpdateVehiculoCommandHandler : IRequestHandler<UpdateVehic
 
         var vehiculo = await repo.GetByIdAsync(request.Id);
 
-        vehiculo!.Placa = request.Placa;
+        vehiculo!.UsuarioId = request.UsuarioId;
+        vehiculo.FlotaId = request.FlotaId;
+        vehiculo.Placa = request.Placa;
         vehiculo.Marca = request.Marca;
         vehiculo.Modelo = request.Modelo;
         vehiculo.Anio = request.Anio;
