@@ -1,0 +1,6 @@
+@ChillTechnologies.API_HostAddress = http://localhost:5081
+
+GET {{ChillTechnologies.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

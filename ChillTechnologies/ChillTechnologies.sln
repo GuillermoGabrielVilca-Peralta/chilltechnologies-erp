@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChillTechnologies.API", "ChillTechnologies.API\ChillTechnologies.API.csproj", "{240E849B-8D67-4D8F-A04A-27FE682A3287}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChillTechnologies.Infrastructure", "ChillTechnologies.Infrastructure\ChillTechnologies.Infrastructure.csproj", "{8C3FCB86-1463-4BC7-A85F-BB59E9AC0390}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChillTechnologies.Application", "ChillTechnologies.Application\ChillTechnologies.Application.csproj", "{6193C732-C596-45D1-A373-6379C0E9656D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChillTechnologies.Domain", "ChillTechnologies.Domain\ChillTechnologies.Domain.csproj", "{DF750028-9BB9-4267-B228-979D1E4AE3F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{240E849B-8D67-4D8F-A04A-27FE682A3287}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{240E849B-8D67-4D8F-A04A-27FE682A3287}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{240E849B-8D67-4D8F-A04A-27FE682A3287}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{240E849B-8D67-4D8F-A04A-27FE682A3287}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C3FCB86-1463-4BC7-A85F-BB59E9AC0390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C3FCB86-1463-4BC7-A85F-BB59E9AC0390}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C3FCB86-1463-4BC7-A85F-BB59E9AC0390}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C3FCB86-1463-4BC7-A85F-BB59E9AC0390}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6193C732-C596-45D1-A373-6379C0E9656D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6193C732-C596-45D1-A373-6379C0E9656D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6193C732-C596-45D1-A373-6379C0E9656D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6193C732-C596-45D1-A373-6379C0E9656D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF750028-9BB9-4267-B228-979D1E4AE3F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF750028-9BB9-4267-B228-979D1E4AE3F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF750028-9BB9-4267-B228-979D1E4AE3F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF750028-9BB9-4267-B228-979D1E4AE3F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
