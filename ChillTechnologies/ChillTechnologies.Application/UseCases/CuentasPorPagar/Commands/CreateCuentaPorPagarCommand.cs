@@ -1,4 +1,5 @@
 using MediatR;
+using ChillTechnologies.Application.Common;
 using ChillTechnologies.Domain.Interfaces;
 
 namespace ChillTechnologies.Application.UseCases.CuentasPorPagar.Commands;
@@ -32,10 +33,10 @@ internal sealed class CreateCuentaPorPagarCommandHandler : IRequestHandler<Creat
             OrdenCompraId = request.OrdenCompraId,
             NumeroDocumento = request.NumeroDocumento,
             FechaEmision = request.FechaEmision,
-            // el vencimiento viene de pago pactado conproveedor
-            FechaVencimiento = request.FechaEmision.AddDays(DiasDeCredito(proveedor!.CondicionPago)),
+            // El vencimiento sale de la condicion de pago pactada con el proveedor
+            FechaVencimiento = request.FechaEmision.AddDays(CondicionesPago.Dias(proveedor!.CondicionPago)),
             Monto = request.Monto,
-            // al inicio el saldo es completo
+            // Al nacer, el saldo es el monto completo
             Saldo = request.Monto,
             Estado = "Pendiente",
             FechaRegistro = DateTime.Now
@@ -45,13 +46,4 @@ internal sealed class CreateCuentaPorPagarCommandHandler : IRequestHandler<Creat
         await _unitOfWork.Complete();
         return data.Id;
     }
-
-    private static int DiasDeCredito(string condicionPago) => condicionPago switch
-    {
-        "Credito 15" => 15,
-        "Credito 30" => 30,
-        "Credito 60" => 60,
-        "Credito 90" => 90,
-        _ => 0
-    };
 }
