@@ -28,6 +28,8 @@ public partial class Empresa
 
     public DateTime FechaRegistro { get; set; }
 
+    public virtual ICollection<Cliente> Clientes { get; set; } = new List<Cliente>();
+
     public virtual ICollection<Flota> Flota { get; set; } = new List<Flota>();
 
     public virtual ICollection<Geocerca> Geocercas { get; set; } = new List<Geocerca>();

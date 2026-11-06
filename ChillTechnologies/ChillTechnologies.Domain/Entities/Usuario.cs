@@ -43,6 +43,8 @@ public partial class Usuario
 
     public virtual ICollection<Canje> Canjes { get; set; } = new List<Canje>();
 
+    public virtual ICollection<Cliente> Clientes { get; set; } = new List<Cliente>();
+
     public virtual Empresa? Empresa { get; set; }
 
     public virtual ICollection<Evento> Eventos { get; set; } = new List<Evento>();
