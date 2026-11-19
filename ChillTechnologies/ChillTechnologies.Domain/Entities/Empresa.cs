@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 namespace ChillTechnologies.Domain.Entities;
 
-/// <summary>
-/// Clientes corporativos: empresas de taxi, delivery o transporte
-/// </summary>
 public partial class Empresa
 {
     public int Id { get; set; }

@@ -12,4 +12,6 @@ public partial class Cargo
     public string Nivel { get; set; } = null!;
 
     public virtual ICollection<Empleado> Empleados { get; set; } = new List<Empleado>();
+
+    public virtual ICollection<TarifasHora> TarifasHoras { get; set; } = new List<TarifasHora>();
 }

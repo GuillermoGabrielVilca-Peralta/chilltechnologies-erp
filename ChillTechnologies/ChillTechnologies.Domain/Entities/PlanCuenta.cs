@@ -17,9 +17,6 @@ public partial class PlanCuenta
 
     public short Nivel { get; set; }
 
-    /// <summary>
-    /// Solo las cuentas de ultimo nivel reciben asientos
-    /// </summary>
     public bool AceptaMovimiento { get; set; }
 
     public string Estado { get; set; } = null!;

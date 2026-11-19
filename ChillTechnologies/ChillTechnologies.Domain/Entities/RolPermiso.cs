@@ -9,9 +9,6 @@ public partial class RolPermiso
 
     public int PermisoId { get; set; }
 
-    /// <summary>
-    /// Momento en que se otorgo el permiso al rol
-    /// </summary>
     public DateTime FechaAsignacion { get; set; }
 
     public virtual Permiso Permiso { get; set; } = null!;

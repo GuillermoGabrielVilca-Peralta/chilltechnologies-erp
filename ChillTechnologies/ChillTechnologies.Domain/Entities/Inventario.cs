@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 namespace ChillTechnologies.Domain.Entities;
 
-/// <summary>
-/// Stock actual por producto y almacen
-/// </summary>
 public partial class Inventario
 {
     public int Id { get; set; }

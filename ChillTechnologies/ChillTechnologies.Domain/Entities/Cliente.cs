@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 namespace ChillTechnologies.Domain.Entities;
 
-/// <summary>
-/// Ficha comercial y de facturacion; puede apuntar a una empresa de flota o a un conductor
-/// </summary>
 public partial class Cliente
 {
     public int Id { get; set; }
@@ -36,6 +33,8 @@ public partial class Cliente
 
     public DateTime FechaRegistro { get; set; }
 
+    public virtual ICollection<ContratosDesarrollo> ContratosDesarrollos { get; set; } = new List<ContratosDesarrollo>();
+
     public virtual ICollection<Cotizacione> Cotizaciones { get; set; } = new List<Cotizacione>();
 
     public virtual ICollection<CuentasPorCobrar> CuentasPorCobrars { get; set; } = new List<CuentasPorCobrar>();
@@ -45,6 +44,8 @@ public partial class Cliente
     public virtual ICollection<Factura> Facturas { get; set; } = new List<Factura>();
 
     public virtual ICollection<Pedido> Pedidos { get; set; } = new List<Pedido>();
+
+    public virtual ICollection<TicketsSoporte> TicketsSoportes { get; set; } = new List<TicketsSoporte>();
 
     public virtual Usuario? Usuario { get; set; }
 

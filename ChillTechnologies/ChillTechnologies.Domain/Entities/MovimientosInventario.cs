@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 namespace ChillTechnologies.Domain.Entities;
 
-/// <summary>
-/// Kardex: entradas, salidas, transferencias y ajustes en un solo libro
-/// </summary>
 public partial class MovimientosInventario
 {
     public int Id { get; set; }

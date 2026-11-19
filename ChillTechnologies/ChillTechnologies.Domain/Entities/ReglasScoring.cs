@@ -7,9 +7,6 @@ public partial class ReglasScoring
 {
     public int Id { get; set; }
 
-    /// <summary>
-    /// NULL = regla por defecto del sistema; con valor = regla propia de esa empresa
-    /// </summary>
     public int? EmpresaId { get; set; }
 
     public int TipoEventoId { get; set; }

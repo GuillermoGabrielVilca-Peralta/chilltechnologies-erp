@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 namespace ChillTechnologies.Domain.Entities;
 
-/// <summary>
-/// Dispositivos de captura de video por vehiculo
-/// </summary>
 public partial class Camara
 {
     public int Id { get; set; }

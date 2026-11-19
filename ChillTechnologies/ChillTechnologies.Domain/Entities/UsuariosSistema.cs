@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 namespace ChillTechnologies.Domain.Entities;
 
-/// <summary>
-/// Personal que accede al ERP; distinto de usuarios (conductores de ChillDrive)
-/// </summary>
 public partial class UsuariosSistema
 {
     public int Id { get; set; }

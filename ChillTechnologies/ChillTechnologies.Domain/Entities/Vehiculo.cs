@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 namespace ChillTechnologies.Domain.Entities;
 
-/// <summary>
-/// Vehiculos registrados por cada conductor
-/// </summary>
 public partial class Vehiculo
 {
     public int Id { get; set; }

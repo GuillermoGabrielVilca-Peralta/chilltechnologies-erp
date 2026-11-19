@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 namespace ChillTechnologies.Domain.Entities;
 
-/// <summary>
-/// Agrupacion de vehiculos dentro de una empresa cliente
-/// </summary>
 public partial class Flota
 {
     public int Id { get; set; }

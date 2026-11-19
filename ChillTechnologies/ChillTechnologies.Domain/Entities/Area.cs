@@ -10,10 +10,7 @@ public partial class Area
     public string Nombre { get; set; } = null!;
 
     public string? Descripcion { get; set; }
-
-    /// <summary>
-    /// Jerarquia del organigrama; NULL = area raiz
-    /// </summary>
+    
     public int? AreaPadreId { get; set; }
 
     public string Estado { get; set; } = null!;

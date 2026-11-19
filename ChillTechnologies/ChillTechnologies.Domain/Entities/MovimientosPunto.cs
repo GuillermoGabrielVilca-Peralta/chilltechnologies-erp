@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 namespace ChillTechnologies.Domain.Entities;
 
-/// <summary>
-/// Libro mayor inmutable: cada fila es una transaccion de puntos
-/// </summary>
 public partial class MovimientosPunto
 {
     public int Id { get; set; }

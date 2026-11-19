@@ -7,9 +7,6 @@ public partial class Geocerca
 {
     public int Id { get; set; }
 
-    /// <summary>
-    /// NULL = geocerca global del sistema
-    /// </summary>
     public int? EmpresaId { get; set; }
 
     public string Nombre { get; set; } = null!;

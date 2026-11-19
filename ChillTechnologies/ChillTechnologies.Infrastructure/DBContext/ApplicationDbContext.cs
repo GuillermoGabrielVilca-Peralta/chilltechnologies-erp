@@ -12,11 +12,15 @@ public partial class ApplicationDbContext : DbContext
     {
     }
 
+    public virtual DbSet<AcuerdosServicio> AcuerdosServicios { get; set; }
+
     public virtual DbSet<AlertasRiesgo> AlertasRiesgos { get; set; }
 
     public virtual DbSet<Aliado> Aliados { get; set; }
 
     public virtual DbSet<Almacene> Almacenes { get; set; }
+
+    public virtual DbSet<Ambiente> Ambientes { get; set; }
 
     public virtual DbSet<Area> Areas { get; set; }
 
@@ -38,11 +42,15 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Cargo> Cargos { get; set; }
 
+    public virtual DbSet<CasosPrueba> CasosPruebas { get; set; }
+
     public virtual DbSet<CategoriasAliado> CategoriasAliados { get; set; }
 
     public virtual DbSet<CategoriasProducto> CategoriasProductos { get; set; }
 
     public virtual DbSet<Cliente> Clientes { get; set; }
+
+    public virtual DbSet<ContratosDesarrollo> ContratosDesarrollos { get; set; }
 
     public virtual DbSet<Cotizacione> Cotizaciones { get; set; }
 
@@ -52,7 +60,11 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<CuentasPorPagar> CuentasPorPagars { get; set; }
 
+    public virtual DbSet<Defecto> Defectos { get; set; }
+
     public virtual DbSet<DescuentosPoliza> DescuentosPolizas { get; set; }
+
+    public virtual DbSet<Despliegue> Despliegues { get; set; }
 
     public virtual DbSet<DetalleAsiento> DetalleAsientos { get; set; }
 
@@ -66,11 +78,15 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<DocumentosVehiculo> DocumentosVehiculos { get; set; }
 
+    public virtual DbSet<EjecucionesPrueba> EjecucionesPruebas { get; set; }
+
     public virtual DbSet<EmisionesViaje> EmisionesViajes { get; set; }
 
     public virtual DbSet<Empleado> Empleados { get; set; }
 
     public virtual DbSet<Empresa> Empresas { get; set; }
+
+    public virtual DbSet<EquiposProyecto> EquiposProyectos { get; set; }
 
     public virtual DbSet<Evento> Eventos { get; set; }
 
@@ -79,6 +95,10 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<Flota> Flotas { get; set; }
 
     public virtual DbSet<Geocerca> Geocercas { get; set; }
+
+    public virtual DbSet<HistoriasUsuario> HistoriasUsuarios { get; set; }
+
+    public virtual DbSet<HitosProyecto> HitosProyectos { get; set; }
 
     public virtual DbSet<Inventario> Inventarios { get; set; }
 
@@ -126,21 +146,39 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Producto> Productos { get; set; }
 
+    public virtual DbSet<ProductosSoftware> ProductosSoftwares { get; set; }
+
     public virtual DbSet<Proveedore> Proveedores { get; set; }
+
+    public virtual DbSet<Proyecto> Proyectos { get; set; }
 
     public virtual DbSet<PuntosUsuario> PuntosUsuarios { get; set; }
 
     public virtual DbSet<Recepcione> Recepciones { get; set; }
 
+    public virtual DbSet<RegistrosHora> RegistrosHoras { get; set; }
+
     public virtual DbSet<ReglasScoring> ReglasScorings { get; set; }
+
+    public virtual DbSet<Repositorio> Repositorios { get; set; }
 
     public virtual DbSet<RolPermiso> RolPermisos { get; set; }
 
     public virtual DbSet<RolesSistema> RolesSistemas { get; set; }
 
+    public virtual DbSet<SeguimientosTicket> SeguimientosTickets { get; set; }
+
     public virtual DbSet<SolicitudesAusencium> SolicitudesAusencia { get; set; }
 
+    public virtual DbSet<Sprint> Sprints { get; set; }
+
     public virtual DbSet<Suscripcione> Suscripciones { get; set; }
+
+    public virtual DbSet<Tarea> Tareas { get; set; }
+
+    public virtual DbSet<TarifasHora> TarifasHoras { get; set; }
+
+    public virtual DbSet<TicketsSoporte> TicketsSoportes { get; set; }
 
     public virtual DbSet<TiposAusencium> TiposAusencia { get; set; }
 
@@ -155,6 +193,10 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<TiposMovimientoInventario> TiposMovimientoInventarios { get; set; }
 
     public virtual DbSet<TiposNotificacion> TiposNotificacions { get; set; }
+
+    public virtual DbSet<TiposProyecto> TiposProyectos { get; set; }
+
+    public virtual DbSet<TiposTicket> TiposTickets { get; set; }
 
     public virtual DbSet<TiposVehiculo> TiposVehiculos { get; set; }
 
@@ -172,6 +214,8 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Vehiculo> Vehiculos { get; set; }
 
+    public virtual DbSet<VersionesProducto> VersionesProductos { get; set; }
+
     public virtual DbSet<Viaje> Viajes { get; set; }
 
     public virtual DbSet<ZonasRiesgo> ZonasRiesgos { get; set; }
@@ -179,6 +223,45 @@ public partial class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresExtension("pgcrypto");
+
+        modelBuilder.Entity<AcuerdosServicio>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("acuerdos_servicio_pkey");
+
+            entity.ToTable("acuerdos_servicio");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.ContratoId).HasColumnName("contrato_id");
+            entity.Property(e => e.DisponibilidadPorcentaje)
+                .HasPrecision(5, 2)
+                .HasDefaultValue(99.00m)
+                .HasColumnName("disponibilidad_porcentaje");
+            entity.Property(e => e.HorasResolucion)
+                .HasPrecision(6, 2)
+                .HasDefaultValue(72m)
+                .HasColumnName("horas_resolucion");
+            entity.Property(e => e.HorasRespuestaAlta)
+                .HasPrecision(6, 2)
+                .HasDefaultValue(8m)
+                .HasColumnName("horas_respuesta_alta");
+            entity.Property(e => e.HorasRespuestaCritica)
+                .HasPrecision(6, 2)
+                .HasDefaultValue(2m)
+                .HasColumnName("horas_respuesta_critica");
+            entity.Property(e => e.HorasRespuestaNormal)
+                .HasPrecision(6, 2)
+                .HasDefaultValue(24m)
+                .HasColumnName("horas_respuesta_normal");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(100)
+                .HasColumnName("nombre");
+            entity.Property(e => e.VigenteDesde).HasColumnName("vigente_desde");
+            entity.Property(e => e.VigenteHasta).HasColumnName("vigente_hasta");
+
+            entity.HasOne(d => d.Contrato).WithMany(p => p.AcuerdosServicios)
+                .HasForeignKey(d => d.ContratoId)
+                .HasConstraintName("acuerdos_servicio_contrato_id_fkey");
+        });
 
         modelBuilder.Entity<AlertasRiesgo>(entity =>
         {
@@ -307,6 +390,27 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.ResponsableEmpleadoId)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("almacenes_responsable_empleado_id_fkey");
+        });
+
+        modelBuilder.Entity<Ambiente>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("ambientes_pkey");
+
+            entity.ToTable("ambientes");
+
+            entity.HasIndex(e => e.Nombre, "ambientes_nombre_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(255)
+                .HasColumnName("descripcion");
+            entity.Property(e => e.EsProductivo).HasColumnName("es_productivo");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(40)
+                .HasColumnName("nombre");
+            entity.Property(e => e.Orden)
+                .HasDefaultValue((short)1)
+                .HasColumnName("orden");
         });
 
         modelBuilder.Entity<Area>(entity =>
@@ -651,6 +755,42 @@ public partial class ApplicationDbContext : DbContext
                 .HasColumnName("nombre");
         });
 
+        modelBuilder.Entity<CasosPrueba>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("casos_prueba_pkey");
+
+            entity.ToTable("casos_prueba");
+
+            entity.HasIndex(e => e.Codigo, "casos_prueba_codigo_key").IsUnique();
+
+            entity.HasIndex(e => e.HistoriaId, "idx_casos_historia");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Automatizado).HasColumnName("automatizado");
+            entity.Property(e => e.Codigo)
+                .HasMaxLength(30)
+                .HasColumnName("codigo");
+            entity.Property(e => e.FechaRegistro)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_registro");
+            entity.Property(e => e.HistoriaId).HasColumnName("historia_id");
+            entity.Property(e => e.Pasos).HasColumnName("pasos");
+            entity.Property(e => e.Precondiciones).HasColumnName("precondiciones");
+            entity.Property(e => e.ResultadoEsperado).HasColumnName("resultado_esperado");
+            entity.Property(e => e.Tipo)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Funcional'::character varying")
+                .HasColumnName("tipo");
+            entity.Property(e => e.Titulo)
+                .HasMaxLength(200)
+                .HasColumnName("titulo");
+
+            entity.HasOne(d => d.Historia).WithMany(p => p.CasosPruebas)
+                .HasForeignKey(d => d.HistoriaId)
+                .HasConstraintName("casos_prueba_historia_id_fkey");
+        });
+
         modelBuilder.Entity<CategoriasAliado>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("categorias_aliado_pkey");
@@ -742,6 +882,52 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.VendedorId)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("clientes_vendedor_id_fkey");
+        });
+
+        modelBuilder.Entity<ContratosDesarrollo>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("contratos_desarrollo_pkey");
+
+            entity.ToTable("contratos_desarrollo");
+
+            entity.HasIndex(e => e.Numero, "contratos_desarrollo_numero_key").IsUnique();
+
+            entity.HasIndex(e => e.ClienteId, "idx_contratos_cliente");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.ClienteId).HasColumnName("cliente_id");
+            entity.Property(e => e.CondicionPago)
+                .HasMaxLength(30)
+                .HasDefaultValueSql("'Contado'::character varying")
+                .HasColumnName("condicion_pago");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(255)
+                .HasColumnName("descripcion");
+            entity.Property(e => e.Estado)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Vigente'::character varying")
+                .HasColumnName("estado");
+            entity.Property(e => e.FechaFin).HasColumnName("fecha_fin");
+            entity.Property(e => e.FechaInicio).HasColumnName("fecha_inicio");
+            entity.Property(e => e.FechaRegistro)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_registro");
+            entity.Property(e => e.Moneda)
+                .HasMaxLength(10)
+                .HasDefaultValueSql("'PEN'::character varying")
+                .HasColumnName("moneda");
+            entity.Property(e => e.MontoTotal)
+                .HasPrecision(14, 2)
+                .HasColumnName("monto_total");
+            entity.Property(e => e.Numero)
+                .HasMaxLength(30)
+                .HasColumnName("numero");
+
+            entity.HasOne(d => d.Cliente).WithMany(p => p.ContratosDesarrollos)
+                .HasForeignKey(d => d.ClienteId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("contratos_desarrollo_cliente_id_fkey");
         });
 
         modelBuilder.Entity<Cotizacione>(entity =>
@@ -916,6 +1102,73 @@ public partial class ApplicationDbContext : DbContext
                 .HasConstraintName("cuentas_por_pagar_proveedor_id_fkey");
         });
 
+        modelBuilder.Entity<Defecto>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("defectos_pkey");
+
+            entity.ToTable("defectos");
+
+            entity.HasIndex(e => e.Codigo, "defectos_codigo_key").IsUnique();
+
+            entity.HasIndex(e => e.Estado, "idx_defectos_estado");
+
+            entity.HasIndex(e => e.ProyectoId, "idx_defectos_proyecto");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.AsignadoAId).HasColumnName("asignado_a_id");
+            entity.Property(e => e.Codigo)
+                .HasMaxLength(30)
+                .HasColumnName("codigo");
+            entity.Property(e => e.Descripcion).HasColumnName("descripcion");
+            entity.Property(e => e.Estado)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Abierto'::character varying")
+                .HasColumnName("estado");
+            entity.Property(e => e.FechaCierre)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_cierre");
+            entity.Property(e => e.FechaReporte)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_reporte");
+            entity.Property(e => e.HistoriaId).HasColumnName("historia_id");
+            entity.Property(e => e.PasosReproduccion).HasColumnName("pasos_reproduccion");
+            entity.Property(e => e.ProyectoId).HasColumnName("proyecto_id");
+            entity.Property(e => e.ReportadoPorId).HasColumnName("reportado_por_id");
+            entity.Property(e => e.Severidad)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Media'::character varying")
+                .HasColumnName("severidad");
+            entity.Property(e => e.Titulo)
+                .HasMaxLength(200)
+                .HasColumnName("titulo");
+            entity.Property(e => e.VersionId).HasColumnName("version_id");
+
+            entity.HasOne(d => d.AsignadoA).WithMany(p => p.DefectoAsignadoAs)
+                .HasForeignKey(d => d.AsignadoAId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("defectos_asignado_a_id_fkey");
+
+            entity.HasOne(d => d.Historia).WithMany(p => p.Defectos)
+                .HasForeignKey(d => d.HistoriaId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("defectos_historia_id_fkey");
+
+            entity.HasOne(d => d.Proyecto).WithMany(p => p.Defectos)
+                .HasForeignKey(d => d.ProyectoId)
+                .HasConstraintName("defectos_proyecto_id_fkey");
+
+            entity.HasOne(d => d.ReportadoPor).WithMany(p => p.DefectoReportadoPors)
+                .HasForeignKey(d => d.ReportadoPorId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("defectos_reportado_por_id_fkey");
+
+            entity.HasOne(d => d.Version).WithMany(p => p.Defectos)
+                .HasForeignKey(d => d.VersionId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("defectos_version_id_fkey");
+        });
+
         modelBuilder.Entity<DescuentosPoliza>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("descuentos_poliza_pkey");
@@ -949,6 +1202,45 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Poliza).WithMany(p => p.DescuentosPolizas)
                 .HasForeignKey(d => d.PolizaId)
                 .HasConstraintName("descuentos_poliza_poliza_id_fkey");
+        });
+
+        modelBuilder.Entity<Despliegue>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("despliegues_pkey");
+
+            entity.ToTable("despliegues");
+
+            entity.HasIndex(e => new { e.AmbienteId, e.FechaDespliegue }, "idx_despliegues_ambiente").IsDescending(false, true);
+
+            entity.HasIndex(e => e.VersionId, "idx_despliegues_version");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.AmbienteId).HasColumnName("ambiente_id");
+            entity.Property(e => e.Estado)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Exitoso'::character varying")
+                .HasColumnName("estado");
+            entity.Property(e => e.FechaDespliegue)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_despliegue");
+            entity.Property(e => e.Observaciones).HasColumnName("observaciones");
+            entity.Property(e => e.ResponsableId).HasColumnName("responsable_id");
+            entity.Property(e => e.VersionId).HasColumnName("version_id");
+
+            entity.HasOne(d => d.Ambiente).WithMany(p => p.Despliegues)
+                .HasForeignKey(d => d.AmbienteId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("despliegues_ambiente_id_fkey");
+
+            entity.HasOne(d => d.Responsable).WithMany(p => p.Despliegues)
+                .HasForeignKey(d => d.ResponsableId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("despliegues_responsable_id_fkey");
+
+            entity.HasOne(d => d.Version).WithMany(p => p.Despliegues)
+                .HasForeignKey(d => d.VersionId)
+                .HasConstraintName("despliegues_version_id_fkey");
         });
 
         modelBuilder.Entity<DetalleAsiento>(entity =>
@@ -1138,6 +1430,42 @@ public partial class ApplicationDbContext : DbContext
                 .HasConstraintName("documentos_vehiculo_vehiculo_id_fkey");
         });
 
+        modelBuilder.Entity<EjecucionesPrueba>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("ejecuciones_prueba_pkey");
+
+            entity.ToTable("ejecuciones_prueba");
+
+            entity.HasIndex(e => e.CasoPruebaId, "idx_ejecuciones_caso");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CasoPruebaId).HasColumnName("caso_prueba_id");
+            entity.Property(e => e.EmpleadoId).HasColumnName("empleado_id");
+            entity.Property(e => e.FechaEjecucion)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_ejecucion");
+            entity.Property(e => e.Observaciones).HasColumnName("observaciones");
+            entity.Property(e => e.Resultado)
+                .HasMaxLength(20)
+                .HasColumnName("resultado");
+            entity.Property(e => e.VersionId).HasColumnName("version_id");
+
+            entity.HasOne(d => d.CasoPrueba).WithMany(p => p.EjecucionesPruebas)
+                .HasForeignKey(d => d.CasoPruebaId)
+                .HasConstraintName("ejecuciones_prueba_caso_prueba_id_fkey");
+
+            entity.HasOne(d => d.Empleado).WithMany(p => p.EjecucionesPruebas)
+                .HasForeignKey(d => d.EmpleadoId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("ejecuciones_prueba_empleado_id_fkey");
+
+            entity.HasOne(d => d.Version).WithMany(p => p.EjecucionesPruebas)
+                .HasForeignKey(d => d.VersionId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("ejecuciones_prueba_version_id_fkey");
+        });
+
         modelBuilder.Entity<EmisionesViaje>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("emisiones_viaje_pkey");
@@ -1271,6 +1599,39 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.Telefono)
                 .HasMaxLength(20)
                 .HasColumnName("telefono");
+        });
+
+        modelBuilder.Entity<EquiposProyecto>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("equipos_proyecto_pkey");
+
+            entity.ToTable("equipos_proyecto");
+
+            entity.HasIndex(e => e.EmpleadoId, "idx_equipos_empleado");
+
+            entity.HasIndex(e => new { e.ProyectoId, e.EmpleadoId }, "uq_equipo_proyecto").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.DedicacionPorcentaje)
+                .HasPrecision(5, 2)
+                .HasDefaultValue(100m)
+                .HasColumnName("dedicacion_porcentaje");
+            entity.Property(e => e.EmpleadoId).HasColumnName("empleado_id");
+            entity.Property(e => e.FechaIngreso).HasColumnName("fecha_ingreso");
+            entity.Property(e => e.FechaSalida).HasColumnName("fecha_salida");
+            entity.Property(e => e.ProyectoId).HasColumnName("proyecto_id");
+            entity.Property(e => e.Rol)
+                .HasMaxLength(40)
+                .HasColumnName("rol");
+
+            entity.HasOne(d => d.Empleado).WithMany(p => p.EquiposProyectos)
+                .HasForeignKey(d => d.EmpleadoId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("equipos_proyecto_empleado_id_fkey");
+
+            entity.HasOne(d => d.Proyecto).WithMany(p => p.EquiposProyectos)
+                .HasForeignKey(d => d.ProyectoId)
+                .HasConstraintName("equipos_proyecto_proyecto_id_fkey");
         });
 
         modelBuilder.Entity<Evento>(entity =>
@@ -1475,6 +1836,88 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.EmpresaId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("geocercas_empresa_id_fkey");
+        });
+
+        modelBuilder.Entity<HistoriasUsuario>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("historias_usuario_pkey");
+
+            entity.ToTable("historias_usuario");
+
+            entity.HasIndex(e => e.Codigo, "historias_usuario_codigo_key").IsUnique();
+
+            entity.HasIndex(e => e.ProyectoId, "idx_historias_proyecto");
+
+            entity.HasIndex(e => e.SprintId, "idx_historias_sprint");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Codigo)
+                .HasMaxLength(30)
+                .HasColumnName("codigo");
+            entity.Property(e => e.CriteriosAceptacion).HasColumnName("criterios_aceptacion");
+            entity.Property(e => e.Descripcion).HasColumnName("descripcion");
+            entity.Property(e => e.Estado)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Backlog'::character varying")
+                .HasColumnName("estado");
+            entity.Property(e => e.FechaRegistro)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_registro");
+            entity.Property(e => e.Prioridad)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Media'::character varying")
+                .HasColumnName("prioridad");
+            entity.Property(e => e.ProyectoId).HasColumnName("proyecto_id");
+            entity.Property(e => e.PuntosHistoria).HasColumnName("puntos_historia");
+            entity.Property(e => e.SprintId).HasColumnName("sprint_id");
+            entity.Property(e => e.Titulo)
+                .HasMaxLength(200)
+                .HasColumnName("titulo");
+
+            entity.HasOne(d => d.Proyecto).WithMany(p => p.HistoriasUsuarios)
+                .HasForeignKey(d => d.ProyectoId)
+                .HasConstraintName("historias_usuario_proyecto_id_fkey");
+
+            entity.HasOne(d => d.Sprint).WithMany(p => p.HistoriasUsuarios)
+                .HasForeignKey(d => d.SprintId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("historias_usuario_sprint_id_fkey");
+        });
+
+        modelBuilder.Entity<HitosProyecto>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("hitos_proyecto_pkey");
+
+            entity.ToTable("hitos_proyecto");
+
+            entity.HasIndex(e => e.ProyectoId, "idx_hitos_proyecto");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(255)
+                .HasColumnName("descripcion");
+            entity.Property(e => e.Estado)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Pendiente'::character varying")
+                .HasColumnName("estado");
+            entity.Property(e => e.FechaEntrega).HasColumnName("fecha_entrega");
+            entity.Property(e => e.FechaObjetivo).HasColumnName("fecha_objetivo");
+            entity.Property(e => e.FechaRegistro)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_registro");
+            entity.Property(e => e.Monto)
+                .HasPrecision(14, 2)
+                .HasColumnName("monto");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(150)
+                .HasColumnName("nombre");
+            entity.Property(e => e.ProyectoId).HasColumnName("proyecto_id");
+
+            entity.HasOne(d => d.Proyecto).WithMany(p => p.HitosProyectos)
+                .HasForeignKey(d => d.ProyectoId)
+                .HasConstraintName("hitos_proyecto_proyecto_id_fkey");
         });
 
         modelBuilder.Entity<Inventario>(entity =>
@@ -2288,6 +2731,36 @@ public partial class ApplicationDbContext : DbContext
                 .HasConstraintName("productos_categoria_producto_id_fkey");
         });
 
+        modelBuilder.Entity<ProductosSoftware>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("productos_software_pkey");
+
+            entity.ToTable("productos_software");
+
+            entity.HasIndex(e => e.Nombre, "productos_software_nombre_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(255)
+                .HasColumnName("descripcion");
+            entity.Property(e => e.Estado)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Activo'::character varying")
+                .HasColumnName("estado");
+            entity.Property(e => e.FechaLanzamiento).HasColumnName("fecha_lanzamiento");
+            entity.Property(e => e.FechaRegistro)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_registro");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(100)
+                .HasColumnName("nombre");
+            entity.Property(e => e.Tipo)
+                .HasMaxLength(30)
+                .HasDefaultValueSql("'Producto'::character varying")
+                .HasColumnName("tipo");
+        });
+
         modelBuilder.Entity<Proveedore>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("proveedores_pkey");
@@ -2327,6 +2800,72 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.Telefono)
                 .HasMaxLength(20)
                 .HasColumnName("telefono");
+        });
+
+        modelBuilder.Entity<Proyecto>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("proyectos_pkey");
+
+            entity.ToTable("proyectos");
+
+            entity.HasIndex(e => e.ContratoId, "idx_proyectos_contrato");
+
+            entity.HasIndex(e => e.Estado, "idx_proyectos_estado");
+
+            entity.HasIndex(e => e.Codigo, "proyectos_codigo_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.AvancePorcentaje)
+                .HasPrecision(5, 2)
+                .HasColumnName("avance_porcentaje");
+            entity.Property(e => e.Codigo)
+                .HasMaxLength(30)
+                .HasColumnName("codigo");
+            entity.Property(e => e.ContratoId).HasColumnName("contrato_id");
+            entity.Property(e => e.Descripcion).HasColumnName("descripcion");
+            entity.Property(e => e.Estado)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Planificado'::character varying")
+                .HasColumnName("estado");
+            entity.Property(e => e.FechaFinEstimada).HasColumnName("fecha_fin_estimada");
+            entity.Property(e => e.FechaFinReal).HasColumnName("fecha_fin_real");
+            entity.Property(e => e.FechaInicio).HasColumnName("fecha_inicio");
+            entity.Property(e => e.FechaRegistro)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_registro");
+            entity.Property(e => e.HorasEstimadas)
+                .HasPrecision(10, 2)
+                .HasColumnName("horas_estimadas");
+            entity.Property(e => e.JefeProyectoId).HasColumnName("jefe_proyecto_id");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(150)
+                .HasColumnName("nombre");
+            entity.Property(e => e.Presupuesto)
+                .HasPrecision(14, 2)
+                .HasColumnName("presupuesto");
+            entity.Property(e => e.ProductoSoftwareId).HasColumnName("producto_software_id");
+            entity.Property(e => e.TipoProyectoId).HasColumnName("tipo_proyecto_id");
+
+            entity.HasOne(d => d.Contrato).WithMany(p => p.Proyectos)
+                .HasForeignKey(d => d.ContratoId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("proyectos_contrato_id_fkey");
+
+            entity.HasOne(d => d.JefeProyecto).WithMany(p => p.Proyectos)
+                .HasForeignKey(d => d.JefeProyectoId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("proyectos_jefe_proyecto_id_fkey");
+
+            entity.HasOne(d => d.ProductoSoftware).WithMany(p => p.Proyectos)
+                .HasForeignKey(d => d.ProductoSoftwareId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("proyectos_producto_software_id_fkey");
+
+            entity.HasOne(d => d.TipoProyecto).WithMany(p => p.Proyectos)
+                .HasForeignKey(d => d.TipoProyectoId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("proyectos_tipo_proyecto_id_fkey");
         });
 
         modelBuilder.Entity<PuntosUsuario>(entity =>
@@ -2397,6 +2936,52 @@ public partial class ApplicationDbContext : DbContext
                 .HasConstraintName("recepciones_orden_compra_id_fkey");
         });
 
+        modelBuilder.Entity<RegistrosHora>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("registros_horas_pkey");
+
+            entity.ToTable("registros_horas");
+
+            entity.HasIndex(e => new { e.EmpleadoId, e.Fecha }, "idx_horas_empleado").IsDescending(false, true);
+
+            entity.HasIndex(e => e.ProyectoId, "idx_horas_proyecto");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Aprobado).HasColumnName("aprobado");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(255)
+                .HasColumnName("descripcion");
+            entity.Property(e => e.EmpleadoId).HasColumnName("empleado_id");
+            entity.Property(e => e.Facturable)
+                .HasDefaultValue(true)
+                .HasColumnName("facturable");
+            entity.Property(e => e.Fecha).HasColumnName("fecha");
+            entity.Property(e => e.FechaRegistro)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_registro");
+            entity.Property(e => e.Horas)
+                .HasPrecision(5, 2)
+                .HasColumnName("horas");
+            entity.Property(e => e.ProyectoId).HasColumnName("proyecto_id");
+            entity.Property(e => e.TareaId).HasColumnName("tarea_id");
+
+            entity.HasOne(d => d.Empleado).WithMany(p => p.RegistrosHoras)
+                .HasForeignKey(d => d.EmpleadoId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("registros_horas_empleado_id_fkey");
+
+            entity.HasOne(d => d.Proyecto).WithMany(p => p.RegistrosHoras)
+                .HasForeignKey(d => d.ProyectoId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("registros_horas_proyecto_id_fkey");
+
+            entity.HasOne(d => d.Tarea).WithMany(p => p.RegistrosHoras)
+                .HasForeignKey(d => d.TareaId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("registros_horas_tarea_id_fkey");
+        });
+
         modelBuilder.Entity<ReglasScoring>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("reglas_scoring_pkey");
@@ -2432,6 +3017,49 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.TipoEventoId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("reglas_scoring_tipo_evento_id_fkey");
+        });
+
+        modelBuilder.Entity<Repositorio>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("repositorios_pkey");
+
+            entity.ToTable("repositorios");
+
+            entity.HasIndex(e => e.Url, "repositorios_url_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Estado)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Activo'::character varying")
+                .HasColumnName("estado");
+            entity.Property(e => e.FechaRegistro)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_registro");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(100)
+                .HasColumnName("nombre");
+            entity.Property(e => e.ProductoSoftwareId).HasColumnName("producto_software_id");
+            entity.Property(e => e.Proveedor)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'GitHub'::character varying")
+                .HasColumnName("proveedor");
+            entity.Property(e => e.RamaPrincipal)
+                .HasMaxLength(50)
+                .HasDefaultValueSql("'main'::character varying")
+                .HasColumnName("rama_principal");
+            entity.Property(e => e.Url)
+                .HasMaxLength(255)
+                .HasColumnName("url");
+            entity.Property(e => e.Visibilidad)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Privado'::character varying")
+                .HasColumnName("visibilidad");
+
+            entity.HasOne(d => d.ProductoSoftware).WithMany(p => p.Repositorios)
+                .HasForeignKey(d => d.ProductoSoftwareId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("repositorios_producto_software_id_fkey");
         });
 
         modelBuilder.Entity<RolPermiso>(entity =>
@@ -2476,6 +3104,39 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.Nombre)
                 .HasMaxLength(60)
                 .HasColumnName("nombre");
+        });
+
+        modelBuilder.Entity<SeguimientosTicket>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("seguimientos_ticket_pkey");
+
+            entity.ToTable("seguimientos_ticket");
+
+            entity.HasIndex(e => new { e.TicketId, e.FechaSeguimiento }, "idx_seguimientos_ticket");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Comentario).HasColumnName("comentario");
+            entity.Property(e => e.EmpleadoId).HasColumnName("empleado_id");
+            entity.Property(e => e.FechaSeguimiento)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_seguimiento");
+            entity.Property(e => e.HorasInvertidas)
+                .HasPrecision(5, 2)
+                .HasColumnName("horas_invertidas");
+            entity.Property(e => e.TicketId).HasColumnName("ticket_id");
+            entity.Property(e => e.VisibleCliente)
+                .HasDefaultValue(true)
+                .HasColumnName("visible_cliente");
+
+            entity.HasOne(d => d.Empleado).WithMany(p => p.SeguimientosTickets)
+                .HasForeignKey(d => d.EmpleadoId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("seguimientos_ticket_empleado_id_fkey");
+
+            entity.HasOne(d => d.Ticket).WithMany(p => p.SeguimientosTickets)
+                .HasForeignKey(d => d.TicketId)
+                .HasConstraintName("seguimientos_ticket_ticket_id_fkey");
         });
 
         modelBuilder.Entity<SolicitudesAusencium>(entity =>
@@ -2523,6 +3184,36 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.TipoAusenciaId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("solicitudes_ausencia_tipo_ausencia_id_fkey");
+        });
+
+        modelBuilder.Entity<Sprint>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("sprints_pkey");
+
+            entity.ToTable("sprints");
+
+            entity.HasIndex(e => e.ProyectoId, "idx_sprints_proyecto");
+
+            entity.HasIndex(e => new { e.ProyectoId, e.Numero }, "uq_sprint_proyecto").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Estado)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Planificado'::character varying")
+                .HasColumnName("estado");
+            entity.Property(e => e.FechaFin).HasColumnName("fecha_fin");
+            entity.Property(e => e.FechaInicio).HasColumnName("fecha_inicio");
+            entity.Property(e => e.Numero).HasColumnName("numero");
+            entity.Property(e => e.Objetivo)
+                .HasMaxLength(255)
+                .HasColumnName("objetivo");
+            entity.Property(e => e.ProyectoId).HasColumnName("proyecto_id");
+            entity.Property(e => e.PuntosCompletados).HasColumnName("puntos_completados");
+            entity.Property(e => e.PuntosComprometidos).HasColumnName("puntos_comprometidos");
+
+            entity.HasOne(d => d.Proyecto).WithMany(p => p.Sprints)
+                .HasForeignKey(d => d.ProyectoId)
+                .HasConstraintName("sprints_proyecto_id_fkey");
         });
 
         modelBuilder.Entity<Suscripcione>(entity =>
@@ -2579,6 +3270,157 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.UsuarioId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("suscripciones_usuario_id_fkey");
+        });
+
+        modelBuilder.Entity<Tarea>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("tareas_pkey");
+
+            entity.ToTable("tareas");
+
+            entity.HasIndex(e => e.EmpleadoId, "idx_tareas_empleado");
+
+            entity.HasIndex(e => e.HistoriaId, "idx_tareas_historia");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Descripcion).HasColumnName("descripcion");
+            entity.Property(e => e.EmpleadoId).HasColumnName("empleado_id");
+            entity.Property(e => e.Estado)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Por hacer'::character varying")
+                .HasColumnName("estado");
+            entity.Property(e => e.FechaCierre)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_cierre");
+            entity.Property(e => e.FechaRegistro)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_registro");
+            entity.Property(e => e.HistoriaId).HasColumnName("historia_id");
+            entity.Property(e => e.HorasEstimadas)
+                .HasPrecision(8, 2)
+                .HasColumnName("horas_estimadas");
+            entity.Property(e => e.HorasReales)
+                .HasPrecision(8, 2)
+                .HasColumnName("horas_reales");
+            entity.Property(e => e.Titulo)
+                .HasMaxLength(200)
+                .HasColumnName("titulo");
+
+            entity.HasOne(d => d.Empleado).WithMany(p => p.Tareas)
+                .HasForeignKey(d => d.EmpleadoId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("tareas_empleado_id_fkey");
+
+            entity.HasOne(d => d.Historia).WithMany(p => p.Tareas)
+                .HasForeignKey(d => d.HistoriaId)
+                .HasConstraintName("tareas_historia_id_fkey");
+        });
+
+        modelBuilder.Entity<TarifasHora>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("tarifas_hora_pkey");
+
+            entity.ToTable("tarifas_hora");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CargoId).HasColumnName("cargo_id");
+            entity.Property(e => e.Moneda)
+                .HasMaxLength(10)
+                .HasDefaultValueSql("'PEN'::character varying")
+                .HasColumnName("moneda");
+            entity.Property(e => e.ProyectoId).HasColumnName("proyecto_id");
+            entity.Property(e => e.Tarifa)
+                .HasPrecision(10, 2)
+                .HasColumnName("tarifa");
+            entity.Property(e => e.VigenteDesde).HasColumnName("vigente_desde");
+            entity.Property(e => e.VigenteHasta).HasColumnName("vigente_hasta");
+
+            entity.HasOne(d => d.Cargo).WithMany(p => p.TarifasHoras)
+                .HasForeignKey(d => d.CargoId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("tarifas_hora_cargo_id_fkey");
+
+            entity.HasOne(d => d.Proyecto).WithMany(p => p.TarifasHoras)
+                .HasForeignKey(d => d.ProyectoId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("tarifas_hora_proyecto_id_fkey");
+        });
+
+        modelBuilder.Entity<TicketsSoporte>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("tickets_soporte_pkey");
+
+            entity.ToTable("tickets_soporte");
+
+            entity.HasIndex(e => e.ClienteId, "idx_tickets_cliente");
+
+            entity.HasIndex(e => new { e.Estado, e.FechaApertura }, "idx_tickets_estado").IsDescending(false, true);
+
+            entity.HasIndex(e => e.Codigo, "tickets_soporte_codigo_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.AcuerdoServicioId).HasColumnName("acuerdo_servicio_id");
+            entity.Property(e => e.AsignadoAId).HasColumnName("asignado_a_id");
+            entity.Property(e => e.Asunto)
+                .HasMaxLength(200)
+                .HasColumnName("asunto");
+            entity.Property(e => e.ClienteId).HasColumnName("cliente_id");
+            entity.Property(e => e.Codigo)
+                .HasMaxLength(30)
+                .HasColumnName("codigo");
+            entity.Property(e => e.DefectoId).HasColumnName("defecto_id");
+            entity.Property(e => e.Descripcion).HasColumnName("descripcion");
+            entity.Property(e => e.Estado)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Abierto'::character varying")
+                .HasColumnName("estado");
+            entity.Property(e => e.FechaApertura)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_apertura");
+            entity.Property(e => e.FechaCierre)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_cierre");
+            entity.Property(e => e.FechaPrimeraRespuesta)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_primera_respuesta");
+            entity.Property(e => e.ProductoSoftwareId).HasColumnName("producto_software_id");
+            entity.Property(e => e.Severidad)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Normal'::character varying")
+                .HasColumnName("severidad");
+            entity.Property(e => e.TipoTicketId).HasColumnName("tipo_ticket_id");
+
+            entity.HasOne(d => d.AcuerdoServicio).WithMany(p => p.TicketsSoportes)
+                .HasForeignKey(d => d.AcuerdoServicioId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("tickets_soporte_acuerdo_servicio_id_fkey");
+
+            entity.HasOne(d => d.AsignadoA).WithMany(p => p.TicketsSoportes)
+                .HasForeignKey(d => d.AsignadoAId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("tickets_soporte_asignado_a_id_fkey");
+
+            entity.HasOne(d => d.Cliente).WithMany(p => p.TicketsSoportes)
+                .HasForeignKey(d => d.ClienteId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("tickets_soporte_cliente_id_fkey");
+
+            entity.HasOne(d => d.Defecto).WithMany(p => p.TicketsSoportes)
+                .HasForeignKey(d => d.DefectoId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("tickets_soporte_defecto_id_fkey");
+
+            entity.HasOne(d => d.ProductoSoftware).WithMany(p => p.TicketsSoportes)
+                .HasForeignKey(d => d.ProductoSoftwareId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("tickets_soporte_producto_software_id_fkey");
+
+            entity.HasOne(d => d.TipoTicket).WithMany(p => p.TicketsSoportes)
+                .HasForeignKey(d => d.TipoTicketId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("tickets_soporte_tipo_ticket_id_fkey");
         });
 
         modelBuilder.Entity<TiposAusencium>(entity =>
@@ -2690,6 +3532,45 @@ public partial class ApplicationDbContext : DbContext
                 .HasMaxLength(20)
                 .HasDefaultValueSql("'Push'::character varying")
                 .HasColumnName("canal");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(60)
+                .HasColumnName("nombre");
+        });
+
+        modelBuilder.Entity<TiposProyecto>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("tipos_proyecto_pkey");
+
+            entity.ToTable("tipos_proyecto");
+
+            entity.HasIndex(e => e.Nombre, "tipos_proyecto_nombre_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(255)
+                .HasColumnName("descripcion");
+            entity.Property(e => e.Modalidad)
+                .HasMaxLength(30)
+                .HasDefaultValueSql("'Precio fijo'::character varying")
+                .HasColumnName("modalidad");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(60)
+                .HasColumnName("nombre");
+        });
+
+        modelBuilder.Entity<TiposTicket>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("tipos_ticket_pkey");
+
+            entity.ToTable("tipos_ticket");
+
+            entity.HasIndex(e => e.Nombre, "tipos_ticket_nombre_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(255)
+                .HasColumnName("descripcion");
+            entity.Property(e => e.Facturable).HasColumnName("facturable");
             entity.Property(e => e.Nombre)
                 .HasMaxLength(60)
                 .HasColumnName("nombre");
@@ -2954,6 +3835,37 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.UsuarioId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("vehiculos_usuario_id_fkey");
+        });
+
+        modelBuilder.Entity<VersionesProducto>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("versiones_producto_pkey");
+
+            entity.ToTable("versiones_producto");
+
+            entity.HasIndex(e => e.ProductoSoftwareId, "idx_versiones_producto");
+
+            entity.HasIndex(e => new { e.ProductoSoftwareId, e.Numero }, "uq_version_producto").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Estado)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Planificada'::character varying")
+                .HasColumnName("estado");
+            entity.Property(e => e.FechaLiberacion).HasColumnName("fecha_liberacion");
+            entity.Property(e => e.FechaRegistro)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("fecha_registro");
+            entity.Property(e => e.NotasVersion).HasColumnName("notas_version");
+            entity.Property(e => e.Numero)
+                .HasMaxLength(20)
+                .HasColumnName("numero");
+            entity.Property(e => e.ProductoSoftwareId).HasColumnName("producto_software_id");
+
+            entity.HasOne(d => d.ProductoSoftware).WithMany(p => p.VersionesProductos)
+                .HasForeignKey(d => d.ProductoSoftwareId)
+                .HasConstraintName("versiones_producto_producto_software_id_fkey");
         });
 
         modelBuilder.Entity<Viaje>(entity =>

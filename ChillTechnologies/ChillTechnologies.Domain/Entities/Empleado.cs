@@ -20,10 +20,7 @@ public partial class Empleado
     public int AreaId { get; set; }
 
     public int CargoId { get; set; }
-
-    /// <summary>
-    /// Jefe directo, para el organigrama
-    /// </summary>
+    
     public int? JefeId { get; set; }
 
     public DateOnly FechaIngreso { get; set; }
@@ -52,6 +49,16 @@ public partial class Empleado
 
     public virtual ICollection<Cotizacione> Cotizaciones { get; set; } = new List<Cotizacione>();
 
+    public virtual ICollection<Defecto> DefectoAsignadoAs { get; set; } = new List<Defecto>();
+
+    public virtual ICollection<Defecto> DefectoReportadoPors { get; set; } = new List<Defecto>();
+
+    public virtual ICollection<Despliegue> Despliegues { get; set; } = new List<Despliegue>();
+
+    public virtual ICollection<EjecucionesPrueba> EjecucionesPruebas { get; set; } = new List<EjecucionesPrueba>();
+
+    public virtual ICollection<EquiposProyecto> EquiposProyectos { get; set; } = new List<EquiposProyecto>();
+
     public virtual ICollection<Empleado> InverseJefe { get; set; } = new List<Empleado>();
 
     public virtual Empleado? Jefe { get; set; }
@@ -66,11 +73,21 @@ public partial class Empleado
 
     public virtual ICollection<Planilla> Planillas { get; set; } = new List<Planilla>();
 
+    public virtual ICollection<Proyecto> Proyectos { get; set; } = new List<Proyecto>();
+
     public virtual ICollection<Recepcione> Recepciones { get; set; } = new List<Recepcione>();
+
+    public virtual ICollection<RegistrosHora> RegistrosHoras { get; set; } = new List<RegistrosHora>();
+
+    public virtual ICollection<SeguimientosTicket> SeguimientosTickets { get; set; } = new List<SeguimientosTicket>();
 
     public virtual ICollection<SolicitudesAusencium> SolicitudesAusenciumAprobadoPorNavigations { get; set; } = new List<SolicitudesAusencium>();
 
     public virtual ICollection<SolicitudesAusencium> SolicitudesAusenciumEmpleados { get; set; } = new List<SolicitudesAusencium>();
+
+    public virtual ICollection<Tarea> Tareas { get; set; } = new List<Tarea>();
+
+    public virtual ICollection<TicketsSoporte> TicketsSoportes { get; set; } = new List<TicketsSoporte>();
 
     public virtual UsuariosSistema? UsuariosSistema { get; set; }
 }

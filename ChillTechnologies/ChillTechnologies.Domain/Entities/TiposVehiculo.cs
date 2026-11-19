@@ -9,9 +9,6 @@ public partial class TiposVehiculo
 
     public string Nombre { get; set; } = null!;
 
-    /// <summary>
-    /// Gramos de CO2 por kilometro segun tipo de vehiculo
-    /// </summary>
     public decimal FactorEmisionGKm { get; set; }
 
     public virtual ICollection<Vehiculo> Vehiculos { get; set; } = new List<Vehiculo>();

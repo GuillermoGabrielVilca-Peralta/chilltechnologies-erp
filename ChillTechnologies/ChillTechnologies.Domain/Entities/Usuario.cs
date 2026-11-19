@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 namespace ChillTechnologies.Domain.Entities;
 
-/// <summary>
-/// Conductores registrados en ChillDrive
-/// </summary>
 public partial class Usuario
 {
     public int Id { get; set; }
@@ -31,10 +28,7 @@ public partial class Usuario
     public DateTime? UltimoAcceso { get; set; }
 
     public DateTime FechaRegistro { get; set; }
-
-    /// <summary>
-    /// NULL = conductor independiente (B2C)
-    /// </summary>
+    
     public int? EmpresaId { get; set; }
 
     public virtual ICollection<AlertasRiesgo> AlertasRiesgos { get; set; } = new List<AlertasRiesgo>();

@@ -19,9 +19,6 @@ public partial class Viaje
 
     public int? DuracionMinutos { get; set; }
 
-    /// <summary>
-    /// Score 0-100 generado por modelo de IA en tiempo real
-    /// </summary>
     public decimal? PuntajeConduccion { get; set; }
 
     public int PuntosGanados { get; set; }

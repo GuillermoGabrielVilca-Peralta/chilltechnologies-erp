@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 namespace ChillTechnologies.Domain.Entities;
 
-/// <summary>
-/// Historial de que conductor maneja que vehiculo de flota
-/// </summary>
 public partial class AsignacionesVehiculo
 {
     public int Id { get; set; }
