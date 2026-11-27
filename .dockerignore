@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+**/.vs/
+**/.idea/
+frontend/
+database/
+.git/
+.gitignore
+*.md
