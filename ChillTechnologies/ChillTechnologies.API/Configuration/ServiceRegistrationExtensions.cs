@@ -25,7 +25,9 @@ public static class ServiceRegistrationExtensions
             typeof(ApplicationAssemblyMarker).Assembly
         ));
         
-        var origenes = configuration.GetSection("Cors:Origenes").Get<string[]>()
+        var seccionCors = configuration.GetSection("Cors:Origenes");
+        var origenes = seccionCors.Get<string[]>()
+                       ?? seccionCors.Value?.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
                        ?? ["http://localhost:5173"];
 
         services.AddCors(options =>
