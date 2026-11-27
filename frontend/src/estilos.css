@@ -462,3 +462,80 @@ table.tabla tbody tr:hover { background: #fafbfd; }
   border-radius: 6px;
   background: var(--panel);
 }
+
+/* ---------- pantallas especiales ---------- */
+.selector-linea { display: flex; align-items: center; gap: 8px; }
+.selector-linea label { font-size: 12px; font-weight: 600; color: var(--texto-suave); }
+.selector-linea select {
+  padding: 8px 10px;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  background: var(--panel);
+  min-width: 220px;
+}
+
+.tablero { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; align-items: flex-start; }
+
+.columna {
+  flex: 0 0 240px;
+  background: #eef1f6;
+  border-radius: var(--radio);
+  padding: 10px;
+}
+
+.columna-titulo {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--texto-suave);
+  margin-bottom: 8px;
+}
+
+.ficha {
+  background: var(--panel);
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 8px;
+}
+
+.ficha-codigo { font-size: 11px; color: var(--texto-suave); }
+.ficha-titulo { font-size: 13px; margin: 3px 0 6px; }
+.ficha-pie { display: flex; justify-content: space-between; align-items: center; }
+.puntos {
+  background: var(--acento-suave);
+  color: var(--acento);
+  border-radius: 10px;
+  padding: 1px 8px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.medidor { height: 10px; background: var(--fondo); border-radius: 5px; overflow: hidden; }
+.medidor-relleno { height: 100%; background: var(--acento); }
+.medidor-relleno.ok { background: var(--ok); }
+
+table.tabla td.numero, table.tabla th.numero { text-align: right; font-variant-numeric: tabular-nums; }
+table.tabla tfoot td {
+  font-weight: 700;
+  background: #fafbfd;
+  border-top: 2px solid var(--borde);
+  padding: 10px 12px;
+}
+
+.descuadre { color: var(--alerta); }
+.cuadrado { color: var(--ok); }
+
+.fila-alerta { background: var(--alerta-suave) !important; }
+
+.lista-definicion { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; padding: 16px; font-size: 13px; }
+.lista-definicion dt { color: var(--texto-suave); }
+.lista-definicion dd { margin: 0; font-weight: 600; }
+
+.bitacora { display: flex; flex-direction: column; gap: 10px; padding: 16px; }
+.bitacora-item { border-left: 3px solid var(--borde); padding-left: 12px; }
+.bitacora-item.interna { border-left-color: var(--aviso); }
+.bitacora-meta { font-size: 11px; color: var(--texto-suave); display: flex; gap: 8px; }

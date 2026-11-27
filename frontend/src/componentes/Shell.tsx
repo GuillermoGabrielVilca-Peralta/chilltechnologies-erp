@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { AREAS, modulosDeArea } from "../api/modulos";
+import { ESPECIALES } from "../api/especiales";
 import { useAuth } from "../auth/AuthContext";
 
 export function Shell() {
@@ -36,6 +37,28 @@ export function Shell() {
           <NavLink to="/" className="menu-enlace menu-destacado" end>
             Dashboard
           </NavLink>
+
+          {(() => {
+            const vistas = ESPECIALES.filter((v) =>
+              busqueda ? v.titulo.toLowerCase().includes(busqueda) : true
+            );
+            if (vistas.length === 0) return null;
+            return (
+              <div className="menu-grupo">
+                <div className="menu-area" style={{ cursor: "default" }}>
+                  <span>Operacion</span>
+                  <span className="menu-contador">{vistas.length}</span>
+                </div>
+                <div className="menu-items">
+                  {vistas.map((v) => (
+                    <NavLink key={v.ruta} to={`/vista/${v.ruta}`} className="menu-enlace">
+                      {v.titulo}
+                    </NavLink>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
 
           {AREAS.map((area) => {
             const modulos = modulosDeArea(area).filter((m) =>

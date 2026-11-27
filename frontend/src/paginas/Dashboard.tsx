@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api/cliente";
 import { AREAS, MODULOS, modulosDeArea } from "../api/modulos";
+import { ESPECIALES } from "../api/especiales";
 import { useAuth } from "../auth/AuthContext";
 
 interface Indicadores {
@@ -97,18 +98,16 @@ export function Dashboard() {
 
         <div className="panel">
           <div className="panel-barra">
-            <strong>Accesos rapidos</strong>
+            <strong>Vistas de operacion</strong>
           </div>
           <div className="barra-horizontal">
-            {["Proyectos", "TicketsSoporte", "Cajas", "AsientosContables", "Inventarios", "Empleados"].map((clave) => {
-              const m = MODULOS.find((x) => x.clave === clave);
-              if (!m) return null;
-              return (
-                <Link key={clave} to={`/modulo/${clave}`} className="boton-secundario" style={{ textDecoration: "none", color: "inherit" }}>
-                  {m.titulo}
-                </Link>
-              );
-            })}
+            {ESPECIALES.map((v) => (
+              <Link key={v.ruta} to={`/vista/${v.ruta}`} className="boton-secundario"
+                style={{ textDecoration: "none", color: "inherit", display: "block" }}>
+                <strong>{v.titulo}</strong>
+                <div style={{ fontSize: 12, color: "var(--texto-suave)", fontWeight: 400 }}>{v.detalle}</div>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
