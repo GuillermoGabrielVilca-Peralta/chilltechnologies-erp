@@ -4,6 +4,8 @@ import { api } from "../api/cliente";
 import { buscarModulo, type Modulo } from "../api/modulos";
 import { Modal } from "../componentes/Modal";
 import { Formulario, etiqueta } from "../componentes/Formulario";
+import { useCatalogos, type Catalogos } from "../componentes/useCatalogos";
+import { limpiarCacheCatalogos } from "../api/relaciones";
 
 type Fila = Record<string, unknown>;
 
@@ -23,6 +25,7 @@ export function PaginaModulo() {
 }
 
 function VistaModulo({ modulo }: { modulo: Modulo }) {
+  const catalogos = useCatalogos(modulo.clave);
   const [filas, setFilas] = useState<Fila[]>([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -106,6 +109,7 @@ function VistaModulo({ modulo }: { modulo: Modulo }) {
       }
       setCreando(false);
       setEditando(null);
+      limpiarCacheCatalogos();
       await cargar();
     } catch (err) {
       setErrorForm(err instanceof Error ? err.message : "No se pudo guardar.");
@@ -178,7 +182,7 @@ function VistaModulo({ modulo }: { modulo: Modulo }) {
                 {visibles.map((fila, i) => (
                   <tr key={String(fila.id ?? i)}>
                     {columnas.map((c) => (
-                      <td key={c}>{celda(c, fila[c])}</td>
+                      <td key={c}>{celda(c, fila[c], catalogos)}</td>
                     ))}
                     {(puedeEditar || puedeEliminar) && (
                       <td>
@@ -242,6 +246,7 @@ function VistaModulo({ modulo }: { modulo: Modulo }) {
           <Formulario
             campos={creando ? modulo.camposCrear : modulo.camposEditar}
             valores={valores}
+            catalogos={catalogos}
             onCambio={(nombre, valor) => setValores((v) => ({ ...v, [nombre]: valor }))}
           />
         </Modal>
@@ -250,11 +255,23 @@ function VistaModulo({ modulo }: { modulo: Modulo }) {
   );
 }
 
-const ESTADOS_OK = ["activo", "activa", "aprobado", "exitoso", "hecho", "hecha", "liberada", "pagada", "cerrado", "finalizado", "vigente", "paso"];
-const ESTADOS_ALERTA = ["inactivo", "inactiva", "bloqueado", "cancelado", "fallido", "rechazado", "anulado", "vencida", "fallo", "critica", "bloqueante"];
+const ESTADOS_OK = ["activo", "activa", "abierta", "aprobado", "aprobada", "exitoso", "hecho", "hecha", "liberada", "pagada", "pagado", "finalizado", "finalizada", "vigente", "paso", "contabilizado", "recibida", "entregado", "resuelto", "baja"];
+const ESTADOS_ALERTA = ["inactivo", "inactiva", "bloqueado", "bloqueada", "cancelado", "cancelada", "fallido", "rechazado", "rechazada", "anulado", "anulada", "vencida", "vencido", "fallo", "critica", "critico", "bloqueante", "suspendido", "descontinuado"];
+const ESTADOS_AVISO = ["pendiente", "borrador", "en curso", "en revision", "en analisis", "en correccion", "en espera", "planificado", "planificada", "alta", "backlog", "por hacer", "asignado", "omitido"];
 
-function celda(columna: string, valor: unknown) {
+function celda(columna: string, valor: unknown, catalogos: Catalogos) {
   if (valor === null || valor === undefined) return <span style={{ color: "#aeb6c2" }}>—</span>;
+  const catalogo = catalogos[columna];
+  if (catalogo && typeof valor === "number") {
+    const nombre = catalogo.get(valor);
+    return nombre ? (
+      <span>
+        {nombre} <span className="id-tenue">#{valor}</span>
+      </span>
+    ) : (
+      <span className="id-tenue">#{valor}</span>
+    );
+  }
   if (typeof valor === "boolean") {
     return <span className={`etiqueta ${valor ? "ok" : "neutra"}`}>{valor ? "Si" : "No"}</span>;
   }
@@ -263,7 +280,13 @@ function celda(columna: string, valor: unknown) {
   const col = columna.toLowerCase();
   if (col === "estado" || col === "severidad" || col === "resultado" || col === "prioridad") {
     const v = texto.toLowerCase();
-    const clase = ESTADOS_OK.includes(v) ? "ok" : ESTADOS_ALERTA.includes(v) ? "alerta" : "aviso";
+    const clase = ESTADOS_OK.includes(v)
+      ? "ok"
+      : ESTADOS_ALERTA.includes(v)
+        ? "alerta"
+        : ESTADOS_AVISO.includes(v)
+          ? "aviso"
+          : "neutra";
     return <span className={`etiqueta ${clase}`}>{texto}</span>;
   }
   if (/^\d{4}-\d{2}-\d{2}T/.test(texto)) return texto.slice(0, 16).replace("T", " ");

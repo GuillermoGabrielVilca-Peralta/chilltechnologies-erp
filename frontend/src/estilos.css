@@ -453,3 +453,12 @@ table.tabla tbody tr:hover { background: #fafbfd; }
   .barra-lateral { display: none; }
   .modal-cuerpo { grid-template-columns: 1fr; }
 }
+
+.id-tenue { color: #aeb6c2; font-size: 11px; }
+
+.campo select {
+  padding: 8px 10px;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  background: var(--panel);
+}
