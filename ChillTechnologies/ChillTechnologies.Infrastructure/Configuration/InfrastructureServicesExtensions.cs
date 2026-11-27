@@ -21,6 +21,7 @@ public static class InfrastructureServicesExtensions
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
+        services.AddScoped<IAuthService, AuthService>();
 
         return services;
     }

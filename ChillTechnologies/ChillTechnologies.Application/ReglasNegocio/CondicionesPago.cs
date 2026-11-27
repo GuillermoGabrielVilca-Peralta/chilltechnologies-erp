@@ -1,4 +1,4 @@
-namespace ChillTechnologies.Application.Common;
+namespace ChillTechnologies.Application.ReglasNegocio;
 
 // Unico lugar donde vive esa tabla, para no repetir el mismo switch y corregir 3 en vez de 1
 public static class CondicionesPago

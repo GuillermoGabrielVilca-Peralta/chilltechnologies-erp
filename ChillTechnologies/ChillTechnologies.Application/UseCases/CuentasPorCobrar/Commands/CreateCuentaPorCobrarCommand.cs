@@ -1,5 +1,5 @@
 using MediatR;
-using ChillTechnologies.Application.Common;
+using ChillTechnologies.Application.ReglasNegocio;
 using ChillTechnologies.Domain.Interfaces;
 
 namespace ChillTechnologies.Application.UseCases.CuentasPorCobrar.Commands;
@@ -31,10 +31,8 @@ internal sealed class CreateCuentaPorCobrarCommandHandler : IRequestHandler<Crea
             ClienteId = request.ClienteId,
             FacturaId = request.FacturaId,
             FechaEmision = request.FechaEmision,
-            // El vencimiento sale de la condicion de pago pactada con el cliente
             FechaVencimiento = request.FechaEmision.AddDays(CondicionesPago.Dias(cliente!.CondicionPago)),
             Monto = request.Monto,
-            //el saldo es el monto completo
             Saldo = request.Monto,
             Estado = "Pendiente",
             FechaRegistro = DateTime.Now

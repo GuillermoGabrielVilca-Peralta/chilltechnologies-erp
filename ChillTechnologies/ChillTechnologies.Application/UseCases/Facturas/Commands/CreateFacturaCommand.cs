@@ -1,5 +1,5 @@
 using MediatR;
-using ChillTechnologies.Application.Common;
+using ChillTechnologies.Application.ReglasNegocio;
 using ChillTechnologies.Domain.Interfaces;
 
 namespace ChillTechnologies.Application.UseCases.Facturas.Commands;
@@ -10,10 +10,8 @@ public record CreateFacturaCommand : IRequest<int>
     public int? PedidoId { get; set; }
     public string Serie { get; set; } = "F001";
     public string Numero { get; set; } = null!;
-    //factura,boleta,nota de credito,nota de debito
     public string TipoComprobante { get; set; } = "Factura";
     public DateOnly FechaEmision { get; set; }
-    // Solo el subtotal
     public decimal Subtotal { get; set; }
 }
 
@@ -41,7 +39,6 @@ internal sealed class CreateFacturaCommandHandler : IRequestHandler<CreateFactur
             Numero = request.Numero,
             TipoComprobante = request.TipoComprobante,
             FechaEmision = request.FechaEmision,
-            // El vencimiento sale de la condicion de pago pactada con el cliente
             FechaVencimiento = request.FechaEmision.AddDays(CondicionesPago.Dias(cliente!.CondicionPago)),
             Subtotal = request.Subtotal,
             Igv = igv,

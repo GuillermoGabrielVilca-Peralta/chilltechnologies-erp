@@ -1,4 +1,4 @@
-namespace ChillTechnologies.Application.Common;
+namespace ChillTechnologies.Application.ReglasNegocio;
 
 public static class SignosBancarios
 {

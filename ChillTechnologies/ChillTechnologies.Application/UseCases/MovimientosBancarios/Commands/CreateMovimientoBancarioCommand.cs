@@ -1,5 +1,5 @@
 using MediatR;
-using ChillTechnologies.Application.Common;
+using ChillTechnologies.Application.ReglasNegocio;
 using ChillTechnologies.Domain.Interfaces;
 
 namespace ChillTechnologies.Application.UseCases.MovimientosBancarios.Commands;
